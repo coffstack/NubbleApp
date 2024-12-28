@@ -1,13 +1,15 @@
 import {apiAdapter} from '@api';
 import {Page} from '@types';
 
+import {followApi} from '../Follow/followApi';
+
 import {userAdapter} from './userAdapter';
 import {userApi} from './userApi';
 import {UpdateUserParams, User, UserDetails} from './userTypes';
 
 async function getById(id: number): Promise<UserDetails> {
   const userAPI = await userApi.getById(id.toString());
-  const {isFollowing} = await userApi.isFollowing(id.toString());
+  const {isFollowing} = await followApi.isFollowing(id.toString());
   return userAdapter.toUserDetails(userAPI, isFollowing);
 }
 
